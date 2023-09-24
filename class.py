@@ -1,3 +1,5 @@
+
+
 class Human:
     def __init__(self, vards, vecums, dzimums, cipars='0'):
         self.name = vards
@@ -48,6 +50,9 @@ class Human:
 
     def printArray(self):
         print(self.number,'. ', self.name,', ', self.age,", ", self.sex,sep='')
+
+    def getAmount(self):
+        return self.amount
 
 # Mantošana
 class Woman(Human):
