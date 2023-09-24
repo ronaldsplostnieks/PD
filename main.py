@@ -19,8 +19,6 @@ products = []
 money = 0
 while True:
     event, values = window.read()
-
-
     if event == sg.WIN_CLOSED or event == 'Beigt':
         break
     elif event == 'Pievienot produktu':
@@ -62,5 +60,5 @@ while True:
 
     for i in range(len(products)):
         products[i].printShop() 
-    print('Money earned:', money)
+    print('Money earned:', round(money, 2))
 window.close()
