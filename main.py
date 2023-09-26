@@ -19,17 +19,17 @@ products = []
 money = 0
 while True:
     event, values = window.read()
+    window.FindElement('outputt').Update('')
 
     for i in range(len(products)):
-        check = products[i].getPName(values['-ENAME-'])
-        print(check) 
-        if check == 'yes':
-            num = i
+        if values['-ENAME-'] != '':
+            check = products[i].getPName(values['-ENAME-'])
+            if check == 'yes':
+                num = i
 
     if event == sg.WIN_CLOSED or event == 'Beigt':
         break
     elif event == 'Pievienot produktu':
-        window.FindElement('outputt').Update('')
         if values["-PNAME-"].lower() == 'dators':
             text = sg.popup_get_text('Datora ražotājs', title="Manufacturer")
             if values['-DETALA-']:
@@ -43,27 +43,27 @@ while True:
                 products.append(Shop(values["-PNAME-"], int(values['-AMOUNT-']), 'programmatura', float(values['-PRICE-'])))
     elif event == 'Produktu piegāde':
         window.FindElement('outputt').Update('')
-        products[int(values[num])].shopDelivery(int(values['-AMOUNT-']))
+        products[num].shopDelivery(int(values['-AMOUNT-']))
     elif event == 'Pārdot':
         window.FindElement('outputt').Update('')
-        amount, price = products[int(values[num])].getAmountPrice()
+        amount, price = products[num].getAmountPrice()
         if amount >= int(values['-AMOUNT-']):
             money += float(values['-AMOUNT-']) * float(price)
         else:
             money += float(amount) * float(price)
-        products[int(values[num])].buyProduct(int(values['-AMOUNT-']))
+        products[num].buyProduct(int(values['-AMOUNT-']))
     elif event == 'Rediģēt datus':
         window.FindElement('outputt').Update('')
         if values["-PNAME-"].lower() != '':
-            products[int(values[num])].changeName(values["-PNAME-"])
+            products[num].changeName(values["-PNAME-"])
         if values['-AMOUNT-'] != '':
-            products[int(values[num])].changeAmount(int(values['-AMOUNT-']))
+            products[num].changeAmount(int(values['-AMOUNT-']))
         if values['-DETALA-']:
-            products[int(values[num])].changeType('detala')
+            products[num].changeType('detala')
         else:
-            products[int(values[num])].changeType('programmatura')
+            products[num].changeType('programmatura')
         if values['-PRICE-'] != '':
-            products[int(values[num])].changePrice(float(values['-PRICE-']))
+            products[num].changePrice(float(values['-PRICE-']))
 
     for i in range(len(products)):
         products[i].printShop(i) 
